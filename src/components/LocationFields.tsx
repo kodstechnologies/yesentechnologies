@@ -7,6 +7,31 @@ type Lib = typeof import("country-state-city");
 
 const labelCls = "mb-2 block font-mono text-[0.62rem] uppercase tracking-[0.16em] text-brand-navy/50";
 
+function handleNumericKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  // Allow: backspace, delete, tab, escape, enter, arrows, home, end
+  const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'];
+  
+  // Allow Ctrl/Cmd + A (select all), Ctrl/Cmd + C (copy), Ctrl/Cmd + V (paste), Ctrl/Cmd + X (cut)
+  if (e.ctrlKey || e.metaKey) {
+    if (['a', 'c', 'v', 'x'].includes(e.key.toLowerCase())) {
+      return;
+    }
+  }
+
+  // Allow navigation and edit keys
+  if (allowedKeys.includes(e.key)) {
+    return;
+  }
+
+  // Allow numbers
+  if (/^[0-9]$/.test(e.key)) {
+    return;
+  }
+
+  // Block everything else (letters, symbols, etc.)
+  e.preventDefault();
+}
+
 /** Country → State → Postal code (auto-fills state & city) → Address. Emits one combined hidden field. */
 export function LocationFields({ name, inputCls }: { name: string; inputCls: string }) {
   const [lib, setLib] = useState<Lib | null>(null);
@@ -96,10 +121,11 @@ export function LocationFields({ name, inputCls }: { name: string; inputCls: str
           <input
             className={inputCls}
             type="text"
-            inputMode="text"
+            inputMode="numeric"
             maxLength={12}
             value={postal}
-            onChange={(e) => setPostal(e.target.value)}
+            onChange={(e) => setPostal(e.target.value.replace(/[^0-9]/g, ''))}
+            onKeyDown={handleNumericKeyDown}
             placeholder="e.g. 682030"
           />
           {lookup === "loading" && <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-brand-navy/40" />}

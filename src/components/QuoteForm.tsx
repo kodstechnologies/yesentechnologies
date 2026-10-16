@@ -45,6 +45,59 @@ const STEPS = ["Service", "Project", "Contact"];
 const inputCls =
   "w-full rounded-[0.7rem] border-[1.5px] border-brand-navy/12 bg-white/75 px-3.5 py-3 text-[0.9rem] text-brand-navy outline-none transition-colors placeholder:text-brand-navy/35 focus:border-brand-sky focus:bg-white";
 
+function handleNumericInput(value: string, allowDecimal = false): string {
+  if (allowDecimal) {
+    return value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  }
+  return value.replace(/[^0-9]/g, '');
+}
+
+function NumericInput({ className, name, defaultValue, allowDecimal = false, ...props }: any) {
+  const [value, setValue] = useState(defaultValue || '');
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow: backspace, delete, tab, escape, enter, arrows, home, end
+    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'];
+    
+    // Allow Ctrl/Cmd + A (select all), Ctrl/Cmd + C (copy), Ctrl/Cmd + V (paste), Ctrl/Cmd + X (cut)
+    if (e.ctrlKey || e.metaKey) {
+      if (['a', 'c', 'v', 'x'].includes(e.key.toLowerCase())) {
+        return;
+      }
+    }
+
+    // Allow navigation and edit keys
+    if (allowedKeys.includes(e.key)) {
+      return;
+    }
+
+    // Allow numbers
+    if (/^[0-9]$/.test(e.key)) {
+      return;
+    }
+
+    // Allow decimal point if decimals are allowed and there isn't already one
+    if (allowDecimal && e.key === '.' && !value.includes('.')) {
+      return;
+    }
+
+    // Block everything else (letters, symbols, etc.)
+    e.preventDefault();
+  };
+
+  return (
+    <input
+      className={className}
+      name={name}
+      value={value}
+      onChange={(e) => setValue(handleNumericInput(e.target.value, allowDecimal))}
+      onKeyDown={handleKeyDown}
+      inputMode="numeric"
+      {...props}
+    />
+  );
+}
+
 function Field({
   label,
   children,
@@ -468,8 +521,8 @@ export function QuoteForm({
                   </Field>
                   {mode === "Retrofit" && (
                     <>
-                      <Field label="Vessel length"><input className={inputCls} type="text" name="vesselLength" maxLength={120} placeholder="e.g. 18 m" /></Field>
-                      <Field label="Approximate vessel weight"><input className={inputCls} type="text" name="vesselWeight" maxLength={120} placeholder="Weight in tonnes or kg" /></Field>
+                      <Field label="Vessel length"><NumericInput className={inputCls} name="vesselLength" maxLength={120} placeholder="e.g. 18 m" allowDecimal /></Field>
+                      <Field label="Approximate vessel weight"><NumericInput className={inputCls} name="vesselWeight" maxLength={120} placeholder="Weight in tonnes or kg" allowDecimal /></Field>
                       <Field label="Current engine type">
                         <select className={inputCls} name="engineType" defaultValue="">
                         <option value="">Select…</option>
@@ -478,18 +531,18 @@ export function QuoteForm({
                         ))}
                       </select>
                       </Field>
-                      <Field label="Year built"><input className={inputCls} type="text" name="yearBuilt" maxLength={120} placeholder="e.g. 2012" /></Field>
+                      <Field label="Year built"><NumericInput className={inputCls} name="yearBuilt" maxLength={120} placeholder="e.g. 2012" /></Field>
                       <Field label="Current engine and propulsion"><input className={inputCls} name="currentPropulsion" maxLength={300} placeholder="Engine power, shaft, propeller or outboard" /></Field>
-                      <Field label="Required speed"><input className={inputCls} name="requiredSpeed" maxLength={120} placeholder="Speed in knots" /></Field>
-                      <Field label="Passenger or load capacity"><input className={inputCls} name="retrofitCapacity" maxLength={120} placeholder="Passengers or load in tonnes" /></Field>
+                      <Field label="Required speed"><NumericInput className={inputCls} name="requiredSpeed" maxLength={120} placeholder="Speed in knots" allowDecimal /></Field>
+                      <Field label="Passenger or load capacity"><NumericInput className={inputCls} name="retrofitCapacity" maxLength={120} placeholder="Passengers or load in tonnes" allowDecimal /></Field>
                       <Field label="Charging facilities at the berth" full><input className={inputCls} name="berthCharging" maxLength={300} placeholder="Available electricity supply, or not sure" /></Field>
                       <Field label="Project location" full><input className={inputCls} name="location" maxLength={160} placeholder="Vessel location or berth" /></Field>
                     </>
                   )}
                   <Field label="Route"><input className={inputCls} type="text" name="route" maxLength={120} placeholder="e.g. Kochi backwaters" /></Field>
-                  <Field label="Operating hours"><input className={inputCls} type="text" name="operatingHours" maxLength={120} placeholder="e.g. 8 hours per day" /></Field>
+                  <Field label="Operating hours"><NumericInput className={inputCls} name="operatingHours" maxLength={120} placeholder="e.g. 8 hours per day" allowDecimal /></Field>
                   {mode === "Greenfield" && (
-                    <Field label="Passenger or load capacity"><input className={inputCls} type="text" name="capacity" maxLength={120} placeholder="e.g. 100 passengers" /></Field>
+                    <Field label="Passenger or load capacity"><NumericInput className={inputCls} name="capacity" maxLength={120} placeholder="e.g. 100 passengers" allowDecimal /></Field>
                   )}
                 </div>
               )}
@@ -515,9 +568,9 @@ export function QuoteForm({
                   </select>
                 </Field>
                 <LocationFields name="siteLocation" inputCls={inputCls} />
-                <Field label="Load"><input className={inputCls} type="text" name="load" maxLength={120} placeholder="e.g. 250 kWh per day" /></Field>
-                <Field label="Capacity (kWp)"><input className={inputCls} type="text" name="capacityKwp" maxLength={120} placeholder="e.g. 500" /></Field>
-                <Field label="Average monthly electricity bill"><input className={inputCls} name="monthlyElectricityBill" maxLength={120} placeholder="Amount and currency" /></Field>
+                <Field label="Load"><input className={inputCls} name="load" maxLength={120} placeholder="e.g. 250 kWh per day" /></Field>
+                <Field label="Capacity (kWp)"><NumericInput className={inputCls} name="capacityKwp" maxLength={120} placeholder="e.g. 500" allowDecimal /></Field>
+                <Field label="Average monthly electricity bill"><NumericInput className={inputCls} name="monthlyElectricityBill" maxLength={120} placeholder="Amount and currency" allowDecimal /></Field>
                 <Field label="Roof or land area (optional)"><input className={inputCls} name="roofLandArea" maxLength={120} placeholder="Area in m² or acres" /></Field>
                 <Field label="Grid availability" full>
                   <select className={inputCls} name="gridAvailability" defaultValue="">
@@ -543,7 +596,7 @@ export function QuoteForm({
                         ))}
                       </select>
                 </Field>
-                <Field label="Capacity (MWp)"><input className={inputCls} type="text" name="capacityMwp" maxLength={120} placeholder="e.g. 50" /></Field>
+                <Field label="Capacity (MWp)"><NumericInput className={inputCls} name="capacityMwp" maxLength={120} placeholder="e.g. 50" allowDecimal /></Field>
                 <Field label="BESS included" full>
                   <select className={inputCls} name="bessIncluded" defaultValue="">
                         <option value="">Select…</option>
@@ -575,7 +628,7 @@ export function QuoteForm({
               )}
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Application"><input className={inputCls} type="text" name="application" maxLength={120} placeholder="e.g. Ferry propulsion" /></Field>
-                <Field label="Quantity"><input className={inputCls} type="text" name="quantity" maxLength={120} placeholder="e.g. 4 units" /></Field>
+                <Field label="Quantity"><NumericInput className={inputCls} name="quantity" maxLength={120} placeholder="e.g. 4 units" /></Field>
                 {product === "ELCO" && <Field label="Shaft and throttle"><input className={inputCls} name="shaftThrottle" maxLength={160} placeholder="e.g. long shaft, remote throttle" /></Field>}
                 <LocationFields name="deliveryLocation" inputCls={inputCls} />
               </div>
@@ -605,7 +658,7 @@ export function QuoteForm({
                 <input className={inputCls} type="email" name="email" maxLength={255} placeholder="you@company.com" />
               </Field>
               <Field label="Phone">
-                <input className={inputCls} type="tel" name="phone" maxLength={30} placeholder="Your phone number" />
+                <NumericInput className={inputCls} name="phone" maxLength={30} placeholder="Your phone number" />
               </Field>
               {interest === "marine" && mode === "Retrofit" && <Field label="Company"><input className={inputCls} name="company" maxLength={160} placeholder="Company name" /></Field>}
               <Field label="Budget">
@@ -615,7 +668,7 @@ export function QuoteForm({
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
-                  <input className={`${inputCls} min-w-0 flex-1`} name="budget" inputMode="decimal" maxLength={40} placeholder="Amount" />
+                  <NumericInput className={`${inputCls} min-w-0 flex-1`} name="budget" maxLength={40} placeholder="Amount" allowDecimal />
                 </div>
               </Field>
               <Field label="Message" full>

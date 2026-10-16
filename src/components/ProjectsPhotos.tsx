@@ -30,7 +30,7 @@ export default function ProjectsPhotos() {
   const subRef = useRef<HTMLParagraphElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const [filter, setFilter] = useState<FilterKey>("all");
-  const [serviceLine, setServiceLine] = useState("all");
+  const [serviceLine, setServiceLine] = useState("All projects");
   const [projects, setProjects] = useState<ProjectRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +39,10 @@ export default function ProjectsPhotos() {
     const loadProjects = async () => {
       try {
         setIsLoading(true);
+        setError(null);
+        console.log("Fetching projects from API...");
         const data = await fetchProjects({ limit: 100 });
+        console.log("Projects loaded:", data.projects);
         setProjects(data.projects);
       } catch (err) {
         console.error("Failed to load projects:", err);
@@ -114,12 +117,20 @@ export default function ProjectsPhotos() {
   const visible = useMemo(() => {
     let filtered = projects;
 
+    console.log("Filtering projects - filter:", filter, "serviceLine:", serviceLine, "total projects:", projects.length);
+    console.log("First project data:", projects[0]);
+
     if (filter === "progress") {
       filtered = filtered.filter(p => p.status === "progress");
+      console.log("After status filter (progress):", filtered.length);
     } else if (filter === "complete") {
       filtered = filtered.filter(p => p.status === "complete");
+      console.log("After status filter (complete):", filtered.length);
     } else if (filter === "profile") {
       filtered = filtered.filter(p => p.status === "live");
+      console.log("After status filter (profile):", filtered.length);
+    } else {
+      console.log("No status filter applied (filter is 'all')");
     }
 
     if (serviceLine !== "all") {
@@ -135,8 +146,12 @@ export default function ProjectsPhotos() {
         }
         return true;
       });
+      console.log("After serviceLine filter:", filtered.length);
+    } else {
+      console.log("No serviceLine filter applied (serviceLine is 'all')");
     }
 
+    console.log("Visible projects after filtering:", filtered.length);
     return filtered;
   }, [projects, serviceLine, filter]);
 
@@ -159,7 +174,7 @@ export default function ProjectsPhotos() {
       </div>
 
       <div className="mt-8 flex flex-wrap justify-center gap-2" role="group" aria-label="Homepage project categories">
-        {[{ key: "all", label: "All projects" }, { key: "Land-Based", label: "Land & Earth" }, { key: "Marine", label: "Marine" }, { key: "Engineering Advisory", label: "Engineering Advisory" }].map(line => (
+        {[{ key: "All projects", label: "All projects" }, { key: "Land-Based", label: "Land & Earth" }, { key: "Marine", label: "Marine" }, { key: "Engineering Advisory", label: "Engineering Advisory" }].map(line => (
           <Button key={line.key} variant="ghost" aria-pressed={serviceLine === line.key} onClick={() => setServiceLine(line.key)} className={serviceLine === line.key ? "bg-brand-navy text-brand-ivory hover:bg-brand-navy/90 hover:text-brand-ivory" : "text-brand-navy"}>
             {line.label}
           </Button>
@@ -183,6 +198,10 @@ export default function ProjectsPhotos() {
       <div ref={gridRef} className="pj-grid grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {isLoading ? (
           <p className="col-span-full py-8 text-center text-brand-navy/70">Loading projects...</p>
+        ) : error ? (
+          <p className="col-span-full py-8 text-center text-red-500">Error: {error}</p>
+        ) : visible.length === 0 ? (
+          <p className="col-span-full py-8 text-center text-brand-navy/70">No projects in this selection.</p>
         ) : (
           visible.map(project => (
             <Link key={project.id} to="/projects/$projectId" params={{ projectId: project.id }} className="pj-card-link">
@@ -200,7 +219,6 @@ export default function ProjectsPhotos() {
           ))
         )}
       </div>
-      {!isLoading && visible.length === 0 && <p className="py-8 text-center text-brand-navy/70">No projects in this selection.</p>}
 
     </section>
   );

@@ -148,11 +148,15 @@ export async function fetchProjects(options?: {
   page?: number;
   limit?: number;
   status?: ApiProjectStatus;
+  category?: string;
+  serviceLine?: string;
 }): Promise<{ projects: ProjectRecord[]; pagination?: unknown }> {
   const params = new URLSearchParams();
   params.set("page", String(options?.page ?? 1));
   params.set("limit", String(options?.limit ?? 100));
   if (options?.status) params.set("status", options.status);
+  if (options?.category) params.set("category", options.category);
+  if (options?.serviceLine) params.set("serviceLine", options.serviceLine);
 
   const data = await projectsFetch<{
     projects: ApiProject[];
