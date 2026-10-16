@@ -1,0 +1,102 @@
+.elco-page { background: var(--shell); color: var(--brand-navy); }
+.elco-page p { text-align: justify !important; text-align-last: auto !important; hyphens: auto; }
+.elco-page li, .elco-page li span { text-align: left !important; text-align-last: auto !important; }
+/* Narrow columns read better ragged-right — justification only causes rivers there. */
+.elco-integration-item p, .elco-hero-credit, .elco-model-figure figcaption { text-align: left !important; }
+.elco-wrap { width: min(100% - 3rem, 76rem); margin-inline: auto; }
+.elco-hero { position: relative; background: var(--shell); padding-top: 1rem; }
+.elco-hero-visual { position: relative; height: 32rem; overflow: hidden; color: var(--brand-ivory); }
+.elco-hero-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in oklab, var(--brand-navy) 70%, transparent), transparent 65%); pointer-events: none; }
+.elco-hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+.elco-hero-copy { position: relative; z-index: 1; padding-block: 2rem; }
+.elco-hero-copy .elco-eyebrow { color: var(--brand-ivory); }
+.elco-hero-credit { position: absolute; z-index: 1; right: 1.5rem; bottom: 1rem; font-size: .65rem; background: color-mix(in oklab, var(--brand-navy) 75%, transparent); padding: .35rem .6rem; }
+.elco-hero-summary { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding-block: 2rem; }
+.elco-hero-summary > p { max-width: 27rem; font-size: 1.05rem; line-height: 1.65; color: var(--muted-foreground); }
+.elco-eyebrow { font-family: var(--font-sans); font-weight: 600; font-size: .72rem; text-transform: uppercase; color: var(--brand-forest); }
+.elco-hero h1 { font-family: var(--font-display); font-size: 4.2rem; line-height: 1.08; margin-block: 1.1rem 1.5rem; }
+.elco-hero-copy > p:not(.elco-eyebrow) { max-width: 27rem; font-size: 1.05rem; line-height: 1.65; color: var(--muted-foreground); }
+.elco-hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; flex-shrink: 0; }
+.elco-band { border-block: 1px solid var(--border); background: var(--surface-tint); }
+.elco-band .elco-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); padding-block: 1.4rem; gap: 1.5rem; font-size: .82rem; }
+.elco-section { padding-block: 4.5rem; }
+.elco-heading { font-family: var(--font-display); font-size: 2.45rem; line-height: 1.2; margin-top: .75rem; }
+.elco-intro { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; }
+.elco-copy { color: var(--muted-foreground); font-size: .93rem; line-height: 1.8; }
+.elco-models { background: var(--canvas); }
+.elco-models > .elco-wrap { width: 100%; max-width: none; }
+.elco-models .elco-models-head { width: min(100% - 3rem, 76rem); margin-inline: auto; padding-block: 4.5rem 3rem; }
+/* Alternating full-bleed photo/text tiles, per client sketch. */
+.elco-model-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding-block: 0; border-bottom: 0; align-items: stretch; scroll-margin-top: 2rem; }
+.elco-model-figure { min-width: 0; margin: 0; position: relative; min-height: 34rem; }
+.elco-model-image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; background: var(--shell); border-radius: 0; }
+.elco-model-product .elco-model-image { object-fit: contain; padding: 2rem; }
+.elco-model-figure figcaption { position: absolute; left: 1.5rem; right: 1.5rem; bottom: 1rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-top: 0; padding: .5rem .75rem; border-top: 0; background: color-mix(in oklab, var(--brand-navy) 72%, transparent); color: var(--brand-ivory); font-size: .7rem; }
+.elco-model-reverse .elco-model-figure { order: 2; }
+.elco-model-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 5rem); background: var(--shell); }
+.elco-model-reverse .elco-model-copy { background: var(--surface-tint); }
+.elco-model-row h3 { font-family: var(--font-display); font-size: 2.3rem; line-height: 1.2; margin-top: .5rem; }
+.elco-model-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; border-block: 1px solid var(--border); padding-block: 1rem; margin-block: 1.5rem; }
+.elco-model-stats dt { font-size: .65rem; color: var(--muted-foreground); }
+.elco-model-stats dd { font-size: 1.3rem; font-weight: 600; margin-top: .35rem; }
+.elco-model-row h4 { font-size: .8rem; font-weight: 700; margin-block: 1.5rem .7rem; }
+.elco-feature-list { display: grid; gap: .65rem; font-size: .82rem; line-height: 1.6; }
+.elco-feature-list li { display: flex; align-items: start; gap: .65rem; }
+.elco-feature-list svg { flex-shrink: 0; color: var(--brand-forest); margin-top: .2rem; }
+.elco-model-links { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.elco-table-shell { margin-top: 2rem; overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+.elco-table { width: 100%; min-width: 47rem; border-collapse: collapse; table-layout: fixed; font-size: .78rem; line-height: 1.55; }
+.elco-table th, .elco-table td { padding: 1rem; vertical-align: top; text-align: left; border-bottom: 1px solid var(--border); overflow-wrap: break-word; }
+.elco-table thead { background: var(--brand-navy); color: var(--brand-ivory); }
+.elco-table thead th:first-child { width: 27%; }
+.elco-table tbody th { font-weight: 600; }
+.elco-table tbody tr:nth-child(even) { background: var(--canvas); }
+.elco-table tbody tr:last-child > * { border-bottom: 0; }
+.elco-faq-shell { margin-top: 2.5rem; }
+.elco-faq-list { border-top: 1px solid var(--border); }
+.elco-faq-item { border-bottom: 1px solid var(--border); }
+.elco-faq-q { display: flex; align-items: start; gap: 1.25rem; width: 100%; padding: 1.35rem 0; text-align: left; background: none; border: 0; cursor: pointer; }
+.elco-faq-num { font-size: .65rem; letter-spacing: .18em; color: var(--brand-forest); margin-top: .45rem; flex-shrink: 0; }
+.elco-faq-text { flex: 1; font-size: 1rem; font-weight: 600; line-height: 1.5; color: var(--brand-navy); }
+.elco-faq-plus { display: grid; place-items: center; height: 1.75rem; width: 1.75rem; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--brand-navy) 20%, transparent); color: var(--brand-navy); flex-shrink: 0; margin-top: .1rem; transition: transform .4s ease, border-color .3s ease, color .3s ease; }
+.elco-faq-plus.open { transform: rotate(45deg); border-color: var(--brand-forest); color: var(--brand-forest); }
+.elco-faq-a { padding: 0 2.75rem 1.5rem 2.9rem; font-size: .9rem; line-height: 1.8; color: var(--muted-foreground); }
+.elco-faq-link { color: var(--brand-forest); text-decoration: underline; text-underline-offset: .2em; }
+.elco-integration { background: var(--surface-tint); }
+.elco-integration-grid { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.elco-integration-item { border-top: 1px solid var(--brand-forest); padding-top: 1.2rem; }
+.elco-integration-item h3 { font-weight: 600; margin-block: .8rem; font-size: .95rem; }
+.elco-integration-item p { font-size: .82rem; line-height: 1.75; color: var(--muted-foreground); }
+.elco-next { background: var(--brand-navy); color: var(--brand-ivory); }
+.elco-next .elco-wrap { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.elco-next p { color: var(--brand-ivory); opacity: .75; }
+@media (max-width: 1023px) {
+  .elco-hero h1 { font-size: 3.2rem; }
+  .elco-hero-summary { align-items: start; flex-direction: column; gap: 1.2rem; }
+  .elco-hero-visual { height: 28rem; }
+  .elco-intro { gap: 2rem; }
+  .elco-integration-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 639px) {
+  .elco-model-figure { min-height: 0; }
+  .elco-model-image { position: static; height: auto; aspect-ratio: 4 / 3; }
+  .elco-model-copy { padding: 2rem 1.25rem 2.5rem; }
+  .elco-page p { text-align: left !important; }
+  .elco-wrap { width: calc(100% - 2.5rem); }
+  .elco-hero { padding-top: .75rem; }
+  .elco-hero-visual { height: 26rem; }
+  .elco-hero-image { object-position: 48% center; }
+  .elco-hero-copy { padding-block: 1.25rem; }
+  .elco-hero-copy .elco-eyebrow { max-width: 15rem; line-height: 1.6; }
+  .elco-hero h1 { font-size: 2.75rem; }
+  .elco-hero-actions { gap: .6rem; }
+  .elco-band .elco-wrap { grid-template-columns: 1fr; gap: .75rem; }
+  .elco-section { padding-block: 3rem; }
+  .elco-heading { font-size: 2rem; }
+  .elco-intro, .elco-model-row { grid-template-columns: 1fr; gap: 1.5rem; }
+  .elco-model-row { padding-block: 0; gap: 0; }
+  .elco-model-reverse .elco-model-figure { order: 0; }
+  .elco-integration-grid { gap: 1.5rem; }
+  .elco-next .elco-wrap { align-items: start; flex-direction: column; }
+  .elco-page .elco-hero-actions :is(a, button), .elco-page .elco-next button { white-space: normal; height: auto; min-height: 2.5rem; max-width: 100%; padding-inline: 1rem; }
+}

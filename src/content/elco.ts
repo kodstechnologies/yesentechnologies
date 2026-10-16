@@ -1,0 +1,60 @@
+export const ELCO_MODELS = [
+  {
+    id: "ep-20", name: "EP-20", comparableHp: 20, replacement: "17–24 hp", voltage: 48,
+    voltageRange: "40–59 V", current: 175, inputKw: 8.4, weightKg: 38.6, weightLb: 85, rpm: 5000,
+    thrust: "390 lbf (1.73 kN)", propeller: "9.25 × 8 in (235 × 203 mm)",
+    dimensions: "470 × 279 × 1,092 mm (18.5 × 11 × 43 in)", trim: "Manual tilt lock; optional Panther Model 40",
+    description: "Elco positions the EP-20 as an electric alternative to a 20 hp petrol outboard. Its nominal 48 V battery system, brushless permanent-magnet AC motor and single-gear drive are offered with tiller or remote throttle, in short- or long-shaft versions.",
+    applications: ["Replacement of 17–24 hp petrol outboards, subject to assessment"],
+    features: ["Nominal 48 V, operating range 40–59 V", "Brushless PMAC motor with single-gear drive", "Tiller or remote throttle; short or long shaft", "Optional electric trim and tilt, DASH Bluetooth interface and NMEA 2000 gateway"],
+  },
+  {
+    id: "ep-30", name: "EP-30", comparableHp: 30, replacement: "25–34 hp", voltage: 96,
+    voltageRange: "90–115 V", current: 165, inputKw: 15.8, weightKg: 40.8, weightLb: 90, rpm: 5750,
+    thrust: "585 lbf (2.60 kN)", propeller: "9.25 × 8 in (235 × 203 mm)",
+    dimensions: "470 × 279 × 1,092 mm (18.5 × 11 × 43 in)", trim: "Manual tilt lock; optional Panther Model 40",
+    description: "The EP-30 runs from a nominal 96 V battery system, with 15.8 kW continuous electrical input and Elco’s stated replacement range of 25–34 hp. At 90 lb / 40.8 kg, Elco describes it as slightly lighter than standard 20 hp petrol outboards. Battery selection, circuit protection and charger compatibility need careful engineering at this higher system voltage.",
+    applications: ["Lake and reservoir boats, and heavily loaded boats that need extra docking power", "Replacement of 25–34 hp petrol outboards, subject to assessment"],
+    features: ["Nominal 96 V, operating range 90–115 V; 165 A maximum continuous current", "Brushless PMAC motor with single-gear drive", "15.8 kW continuous electrical input", "Tiller or remote throttle; short or long shaft; dual top-mount throttle for twin installations", "Optional electric trim and tilt, DASH Bluetooth interface and NMEA 2000 gateway"],
+  },
+  {
+    id: "ep-50", name: "EP-50", comparableHp: 50, replacement: "35–55 hp", voltage: 96,
+    voltageRange: "80–120 V", current: 400, inputKw: 38.4, weightKg: 86.2, weightLb: 190, rpm: 6000,
+    thrust: "975 lbf (4.34 kN)", propeller: "9⅞ × 12 in (251 × 305 mm)",
+    dimensions: "704 × 376 × 1,153 mm (27.7 × 14.8 × 45.4 in)", trim: "Manual tilt lock; optional Panther Model 135",
+    description: "The EP-50 uses a more robust chassis and a larger 9⅞ × 12 in propeller. Elco lists 38.4 kW continuous electrical input at a nominal 96 V, with a replacement range of 35–55 hp. At 190 lb / 86.2 kg, it is suitable for larger vessels. The high current calls for carefully engineered battery banks, cabling and protection: YESEN assesses the complete system, not the motor alone.",
+    applications: ["Replacement of 35–55 hp petrol outboards, subject to assessment"],
+    features: ["Nominal 96 V, operating range 80–120 V; 400 A maximum continuous current", "Brushless PMAC motor with single-gear drive", "38.4 kW continuous electrical input", "Tiller or remote throttle; short or long shaft; dual top-mount throttle for twin installations", "Optional Panther Model 135 electric trim and tilt, DASH Bluetooth interface and NMEA 2000 gateway"],
+  },
+] as const;
+
+export const ELCO_INTEGRATION = [
+  ["Vessel assessment", "We review hull form, displacement, operating profile and required speed to define what the propulsion system must deliver."],
+  ["Motor selection & sizing", "We compare motor options, including ELCO EP-series outboards and YESEN’s own solutions, against that requirement."],
+  ["Marine battery & BESS selection", "We size battery capacity, voltage and chemistry to the motor and the duty cycle."],
+  ["BMS integration", "We connect battery monitoring and protection to the propulsion system."],
+  ["Electrical & control integration", "We design cabling, fusing, disconnects, throttle and monitoring interfaces."],
+  ["Charging engineering", "We select chargers matched to battery chemistry and the charging infrastructure available at your berth or jetty."],
+  ["Retrofit & installation engineering", "We check transom, weight distribution, battery location and routing before work starts."],
+  ["Testing & commissioning", "We support sea or water trials and handover."],
+] as const;
+
+export const ELCO_COMPARISON = [
+  ["Elco comparable HP designation", ...ELCO_MODELS.map(m => `${m.comparableHp} hp`)],
+  ["Elco HP replacement range", ...ELCO_MODELS.map(m => m.replacement)],
+  ["Nominal battery voltage", ...ELCO_MODELS.map(m => `${m.voltage} V`)],
+  ["Operating voltage range", ...ELCO_MODELS.map(m => m.voltageRange)],
+  ["Max continuous battery current", ...ELCO_MODELS.map(m => `${m.current} A`)],
+  ["Continuous electrical input", ...ELCO_MODELS.map(m => `${m.inputKw} kW`)],
+  ["Shaft output power", "TBC", "TBC", "TBC"],
+  ["Static thrust", ...ELCO_MODELS.map(m => m.thrust)],
+  ["Maximum RPM", ...ELCO_MODELS.map(m => m.rpm.toLocaleString("en-US"))],
+  ["Lower-unit gear ratio", "2.08:1", "2.08:1", "2.08:1"],
+  ["Propeller (as listed)", ...ELCO_MODELS.map(m => m.propeller)],
+  ["Motor technology", ...ELCO_MODELS.map(() => "Brushless permanent-magnet AC (PMAC), single-gear drive")],
+  ["Weight", ...ELCO_MODELS.map(m => `${m.weightLb} lb (${m.weightKg} kg)`)],
+  ["Overall L × W × H, short shaft", ...ELCO_MODELS.map(m => m.dimensions)],
+  ["Cooling", ...ELCO_MODELS.map(() => "Water-cooled; lower-unit inlet, pump and outlet per manual. Circuit type and flow requirement: TBC")],
+  ["Throttle", ...ELCO_MODELS.map(() => "Tiller: twist grip, forward/reverse switch, lanyard cut-off. Remote: Livorsi side, top or dual top mount; 16 ft cable, key and cut-off switches")],
+  ["Trim & tilt", ...ELCO_MODELS.map(m => m.trim)],
+];

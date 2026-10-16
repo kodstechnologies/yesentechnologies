@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nitro",
+  "installCommand": "bun install --frozen-lockfile",
+  "headers": [
+    {
+      "source": "/__l5e/assets-v1/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "VITE_SUPABASE_PUBLISHABLE_KEY": "sb_publishable_J16cltvM6trMRMdJJ11mVg_PkR5bcml",
+    "VITE_SUPABASE_URL": "https://rkzbjsvedghihxxpomck.supabase.co"
+  }
+}
