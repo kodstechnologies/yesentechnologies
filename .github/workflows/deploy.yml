@@ -33,7 +33,6 @@ jobs:
             set -eu
 
             APP_DIR="/home/ubuntu/yesentechnologies"
-
             cd "$APP_DIR"
 
             echo "Restoring environment file..."
@@ -60,7 +59,6 @@ jobs:
             pnpm build
 
             echo "Restarting frontend service..."
-            pm2 list
             pm2 restart yesentechnologies --update-env
 
             echo "Checking Nginx..."
@@ -68,5 +66,3 @@ jobs:
             sudo systemctl reload nginx
 
             echo "Deployment completed."
-        env:
-          ENV_FILE: ${{ secrets.ENV_FILE }}
