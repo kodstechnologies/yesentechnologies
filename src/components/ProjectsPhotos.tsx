@@ -19,7 +19,7 @@ const TITLE_WORDS = ["From", "pilot", "to", "fleet", "—", "in", "our", "own", 
 
 const FILTERS = [
   { key: "all", label: "All" },
-  { key: "progress", label: "Ongoing" },
+  { key: "progress", label: "In Progress" },
   { key: "complete", label: "Completed" },
   { key: "profile", label: "Vessel profiles" },
 ] as const;
@@ -30,7 +30,7 @@ export default function ProjectsPhotos() {
   const subRef = useRef<HTMLParagraphElement | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const [filter, setFilter] = useState<FilterKey>("all");
-  const [serviceLine, setServiceLine] = useState("All projects");
+  const [serviceLine, setServiceLine] = useState("all");
   const [projects, setProjects] = useState<ProjectRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -40,9 +40,37 @@ export default function ProjectsPhotos() {
       try {
         setIsLoading(true);
         setError(null);
-        console.log("Fetching projects from API...");
-        const data = await fetchProjects({ limit: 100 });
-        console.log("Projects loaded:", data.projects);
+        console.log("Fetching projects from API with filters:", { filter, serviceLine });
+        
+        // Map frontend filter keys to backend status values
+        let statusFilter: ApiProjectStatus | undefined;
+        if (filter === "progress") {
+          statusFilter = "inprogress";
+        } else if (filter === "complete") {
+          statusFilter = "completed";
+        } else if (filter === "profile") {
+          statusFilter = "live";
+        }
+        // If filter is "all", statusFilter remains undefined
+        
+        // Map serviceLine to category
+        let categoryFilter: string | undefined;
+        if (serviceLine === "land") {
+          categoryFilter = "land and earth";
+        } else if (serviceLine === "marine") {
+          categoryFilter = "marine";
+        } else if (serviceLine === "advisory") {
+          categoryFilter = "advisory";
+        }
+        // If serviceLine is "all", categoryFilter remains undefined
+        
+        const data = await fetchProjects({ 
+          limit: 100,
+          status: statusFilter,
+          category: categoryFilter
+        });
+        
+        console.log("Projects loaded from API:", data.projects.length);
         setProjects(data.projects);
       } catch (err) {
         console.error("Failed to load projects:", err);
@@ -53,7 +81,7 @@ export default function ProjectsPhotos() {
     };
 
     loadProjects();
-  }, []);
+  }, [filter, serviceLine]); // Re-fetch when filters change
 
   /* title blur-to-focus reveal */
   useEffect(() => {
@@ -114,46 +142,8 @@ export default function ProjectsPhotos() {
     return () => io.disconnect();
   }, [filter, serviceLine]);
 
-  const visible = useMemo(() => {
-    let filtered = projects;
-
-    console.log("Filtering projects - filter:", filter, "serviceLine:", serviceLine, "total projects:", projects.length);
-    console.log("First project data:", projects[0]);
-
-    if (filter === "progress") {
-      filtered = filtered.filter(p => p.status === "progress");
-      console.log("After status filter (progress):", filtered.length);
-    } else if (filter === "complete") {
-      filtered = filtered.filter(p => p.status === "complete");
-      console.log("After status filter (complete):", filtered.length);
-    } else if (filter === "profile") {
-      filtered = filtered.filter(p => p.status === "live");
-      console.log("After status filter (profile):", filtered.length);
-    } else {
-      console.log("No status filter applied (filter is 'all')");
-    }
-
-    if (serviceLine !== "all") {
-      filtered = filtered.filter(p => {
-        const category = p.category?.toLowerCase() || "";
-        const type = p.type?.toLowerCase() || "";
-        if (serviceLine === "Land-Based") {
-          return category.includes("land") || type.includes("land") || type.includes("solar") || type.includes("earth");
-        } else if (serviceLine === "Marine") {
-          return category.includes("marine") || type.includes("marine") || type.includes("boat") || type.includes("ferry") || type.includes("vessel");
-        } else if (serviceLine === "Engineering Advisory") {
-          return category.includes("advisory") || type.includes("advisory") || type.includes("consulting");
-        }
-        return true;
-      });
-      console.log("After serviceLine filter:", filtered.length);
-    } else {
-      console.log("No serviceLine filter applied (serviceLine is 'all')");
-    }
-
-    console.log("Visible projects after filtering:", filtered.length);
-    return filtered;
-  }, [projects, serviceLine, filter]);
+  // Since filtering is now done on the backend, just use projects directly
+  const visible = projects;
 
   return (
     <section id="projects" className="pj-section">
@@ -174,8 +164,23 @@ export default function ProjectsPhotos() {
       </div>
 
       <div className="mt-8 flex flex-wrap justify-center gap-2" role="group" aria-label="Homepage project categories">
-        {[{ key: "All projects", label: "All projects" }, { key: "Land-Based", label: "Land & Earth" }, { key: "Marine", label: "Marine" }, { key: "Engineering Advisory", label: "Engineering Advisory" }].map(line => (
-          <Button key={line.key} variant="ghost" aria-pressed={serviceLine === line.key} onClick={() => setServiceLine(line.key)} className={serviceLine === line.key ? "bg-brand-navy text-brand-ivory hover:bg-brand-navy/90 hover:text-brand-ivory" : "text-brand-navy"}>
+        {[
+          { key: "all", label: "All projects" }, 
+          { key: "land", label: "Land & Earth" }, 
+          { key: "marine", label: "Marine" }, 
+          { key: "advisory", label: "Engineering Advisory" }
+        ].map(line => (
+          <Button 
+            key={line.key} 
+            variant="ghost" 
+            aria-pressed={serviceLine === line.key} 
+            onClick={() => setServiceLine(line.key)} 
+            disabled={isLoading}
+            className={serviceLine === line.key 
+              ? "bg-brand-navy text-brand-ivory hover:bg-brand-navy/90 hover:text-brand-ivory" 
+              : "text-brand-navy"
+            }
+          >
             {line.label}
           </Button>
         ))}
@@ -187,7 +192,11 @@ export default function ProjectsPhotos() {
             aria-pressed={filter === f.key}
             key={f.key}
             type="button"
-            className={filter === f.key ? "rounded-full bg-brand-navy text-brand-ivory hover:bg-brand-navy/90 hover:text-brand-ivory" : "rounded-full text-brand-navy"}
+            disabled={isLoading}
+            className={filter === f.key 
+              ? "rounded-full bg-brand-navy text-brand-ivory hover:bg-brand-navy/90 hover:text-brand-ivory" 
+              : "rounded-full text-brand-navy"
+            }
             onClick={() => setFilter(f.key)}
           >
             {f.label}
@@ -201,18 +210,40 @@ export default function ProjectsPhotos() {
         ) : error ? (
           <p className="col-span-full py-8 text-center text-red-500">Error: {error}</p>
         ) : visible.length === 0 ? (
-          <p className="col-span-full py-8 text-center text-brand-navy/70">No projects in this selection.</p>
+          <p className="col-span-full py-8 text-center text-brand-navy/70">No projects in this selection. (Filter: {filter}, ServiceLine: {serviceLine})</p>
         ) : (
-          visible.map(project => (
-            <Link key={project.id} to="/projects/$projectId" params={{ projectId: project.id }} className="pj-card-link">
-              <article className="pj-card flex min-h-[22rem] h-full flex-col bg-brand-navy">
-                <img src={project.cover} alt={project.title} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
-                <div className="pj-scrim" />
-                <div className="pj-shine" />
-                <div className="pj-content mt-auto min-h-[22rem]">
-                  <span className={`pj-badge ${project.status === "progress" ? "ongoing" : "done"}`}><i />{project.statusLabel}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.summary}</p>
+          visible.map((project, idx) => (
+            <Link key={project.id} to="/projects/$projectId" params={{ projectId: project.id }} className="block group">
+              <article className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg transition-all hover:shadow-xl hover:-translate-y-1 h-full min-h-[22rem]">
+                <div className="aspect-[4/3] w-full overflow-hidden">
+                  <img 
+                    src={project.cover} 
+                    alt={project.title} 
+                    loading="lazy" 
+                    decoding="async" 
+                    className="h-full w-full object-cover transition-transform group-hover:scale-105" 
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <span className={`inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1 text-xs font-semibold mb-3 backdrop-blur-sm ${
+                    project.status === "progress" 
+                      ? "border-blue-400 text-blue-400 bg-blue-400/10" 
+                      : project.status === "complete"
+                      ? "border-green-400 text-green-400 bg-green-400/10"
+                      : "border-yellow-400 text-yellow-400 bg-yellow-400/10"
+                  }`}>
+                    <span className={`h-1.5 w-1.5 rounded-full ${
+                      project.status === "progress" 
+                        ? "bg-blue-400" 
+                        : project.status === "complete"
+                        ? "bg-green-400"
+                        : "bg-yellow-400"
+                    }`} />
+                    {project.statusLabel}
+                  </span>
+                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <p className="text-sm text-white/90 line-clamp-2">{project.summary}</p>
                 </div>
               </article>
             </Link>
