@@ -261,11 +261,12 @@ function ContactPage() {
       .then((response) => {
         console.log("Contact form response:", response);
         setSending(false);
-        if (response.success === true) {
+        // Backend returns { inquiry } on success
+        if (response.inquiry) {
           form.reset();
           toast.success("Thank you — your message has reached our team.");
         } else {
-          toast.error(response.message || "Sorry, your message couldn't be sent. Please email info@yesentechnologies.com.");
+          toast.error("Sorry, your message couldn't be sent. Please email info@yesentechnologies.com.");
         }
       })
       .catch((error) => {

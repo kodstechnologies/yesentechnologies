@@ -460,7 +460,7 @@ function ProjectLogSection({ projects, isLoading }: { projects: ProjectRecord[];
                   /> : <ProjectPlaceholder />}
                   <span className="absolute inset-0 bg-gradient-to-t from-brand-navy/70 via-brand-navy/0 to-transparent" />
                   <span className="absolute bottom-3 left-3 font-mono text-[0.66rem] tracking-[0.2em] text-brand-ivory">
-                    {p.id}
+                    {String(i + 1).padStart(3, '0')}
                   </span>
                 </div>
 
