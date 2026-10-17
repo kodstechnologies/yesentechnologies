@@ -1,4 +1,4 @@
-```yaml
+
 name: Deploy Yesen Technologies
 
 on:
@@ -21,11 +21,14 @@ jobs:
     steps:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           command_timeout: 15m
+          envs: ENV_FILE
           script: |
             set -eu
 
@@ -33,9 +36,18 @@ jobs:
 
             cd "$APP_DIR"
 
+            echo "Restoring environment file..."
+            test -n "$ENV_FILE"
+            printf '%s\n' "$ENV_FILE" > .env
+            chmod 600 .env
+
             echo "Pulling latest code..."
             git fetch origin main
             git reset --hard origin/main
+
+            echo "Restoring environment file after Git update..."
+            printf '%s\n' "$ENV_FILE" > .env
+            chmod 600 .env
 
             echo "Checking Node.js and pnpm..."
             node --version
@@ -49,8 +61,6 @@ jobs:
 
             echo "Restarting frontend service..."
             pm2 list
-
-            # Replace this name with the actual PM2 process name.
             pm2 restart yesentechnologies --update-env
 
             echo "Checking Nginx..."
@@ -58,4 +68,5 @@ jobs:
             sudo systemctl reload nginx
 
             echo "Deployment completed."
-```
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
