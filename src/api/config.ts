@@ -2,8 +2,13 @@
  * API Configuration
  */
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "/api" : "http://3.6.27.112/api/v1");
+// Force production API URL - never use old IP address
+const PRODUCTION_API_URL = "https://api.yesentechnologies.com/";
+export const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "/api" : PRODUCTION_API_URL);
 export const FORMS_API_KEY = import.meta.env.VITE_FORMS_API_KEY || "change_this_forms_key_min_8_chars";
+
+// Log to verify the URL being used (remove in production)
+console.log("API_BASE_URL:", API_BASE_URL);
 
 export const API_ENDPOINTS = {
   FORMS: {

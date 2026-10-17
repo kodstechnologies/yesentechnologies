@@ -25,7 +25,7 @@ export default defineConfig({
     server: {
       proxy: {
         '/api': {
-          target: 'http://3.6.27.112/api/v1',
+          target: '"https://api.yesentechnologies.com/"api/v1',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
