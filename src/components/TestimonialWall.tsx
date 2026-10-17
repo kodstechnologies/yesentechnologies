@@ -298,7 +298,24 @@ export default function TestimonialWall() {
                       className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-default"
                     >
                       <span className="relative block aspect-video w-full">
-                        {t.posterImage || t.thumbnailUrl ? (
+                        {t.videoUrl ? (
+                          <video
+                            src={t.videoUrl}
+                            poster={t.posterImage || t.thumbnailUrl}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                            muted
+                            playsInline
+                            loop
+                            preload="metadata"
+                            onMouseEnter={(e) => {
+                              e.currentTarget.play().catch(() => {});
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.pause();
+                              e.currentTarget.currentTime = 0;
+                            }}
+                          />
+                        ) : t.posterImage || t.thumbnailUrl ? (
                           <img
                             src={t.posterImage || t.thumbnailUrl}
                             alt={`Video thumbnail: ${t.title}`}
@@ -312,7 +329,7 @@ export default function TestimonialWall() {
                             className="block h-full w-full bg-[radial-gradient(120%_120%_at_20%_0%,color-mix(in_oklab,var(--primary)_18%,transparent),transparent_60%)]"
                           />
                         )}
-                        <span className="absolute inset-0 grid place-items-center bg-foreground/10 transition-colors group-hover:bg-foreground/5">
+                        <span className="absolute inset-0 grid place-items-center bg-foreground/10 transition-colors group-hover:bg-foreground/5 pointer-events-none">
                           <span className="grid h-14 w-14 place-items-center rounded-full bg-background/90 text-foreground shadow-lg backdrop-blur transition-transform duration-300 group-enabled:group-hover:scale-110">
                             <Play className="ml-0.5 h-5 w-5" aria-hidden />
                           </span>
@@ -344,7 +361,24 @@ export default function TestimonialWall() {
                       className="group relative block w-full overflow-hidden rounded-2xl border border-border bg-card text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl disabled:cursor-default"
                     >
                       <span className="relative block aspect-video w-full">
-                        {t.posterImage ? (
+                        {t.videoUrl ? (
+                          <video
+                            src={t.videoUrl}
+                            poster={t.posterImage}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                            muted
+                            playsInline
+                            loop
+                            preload="metadata"
+                            onMouseEnter={(e) => {
+                              e.currentTarget.play().catch(() => {});
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.pause();
+                              e.currentTarget.currentTime = 0;
+                            }}
+                          />
+                        ) : t.posterImage ? (
                           <img
                             src={t.posterImage}
                             alt={`Video thumbnail: ${t.title}`}
@@ -358,11 +392,12 @@ export default function TestimonialWall() {
                             className="block h-full w-full bg-[radial-gradient(120%_120%_at_20%_0%,color-mix(in_oklab,var(--primary)_18%,transparent),transparent_60%)]"
                           />
                         )}
-                        <span className="absolute inset-0 grid place-items-center bg-foreground/10 transition-colors group-hover:bg-foreground/5">
+                        <span className="absolute inset-0 grid place-items-center bg-foreground/10 transition-colors group-hover:bg-foreground/5 pointer-events-none">
                           <span className="grid h-14 w-14 place-items-center rounded-full bg-background/90 text-foreground shadow-lg backdrop-blur transition-transform duration-300 group-enabled:group-hover:scale-110">
                             <Play className="ml-0.5 h-5 w-5" aria-hidden />
                           </span>
                         </span>
+                        
                         {t.isDemo && (
                           <span className="absolute left-3 top-3 rounded-full bg-background/90 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground">
                             Demo content
