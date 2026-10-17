@@ -1172,7 +1172,7 @@ function Home() {
             <div className="col-span-2 min-w-0 sm:col-span-4 xl:col-span-1" data-reveal="left">
               <Logo className="h-11 w-auto max-w-[62vw] sm:h-14 md:h-auto md:w-56 md:max-w-full" />
               <p className="mt-4 text-[0.78rem] font-medium tracking-[0.02em] text-brand-forest">
-                Erstwhile YESEN Sustain Pvt Ltd
+                Erstwhile known as YESEN Sustain Pvt Ltd
               </p>
               <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">
                 Green technologies that make economic sense — engineered for smart cities and the
