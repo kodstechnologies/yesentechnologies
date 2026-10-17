@@ -53,6 +53,7 @@ export interface ProductServiceEnquiryPayload extends BaseEnquiryPayload {
 }
 
 export interface ApiResponse {
+  inquiry: any;
   success: boolean;
   message?: string;
   data?: any;
