@@ -60,8 +60,8 @@ export const MARINE_RETROFIT: ServiceLink[] = [
 ];
 
 export const ADVISORY_LINKS: ServiceLink[] = [
-  { label: "Owner's Engineering", to: "/engineering-advisory/owners-engineering", blurb: "Your technical team on the owner's side, from design to handover.", image: advEngineer.url },
-  { label: "Technical Due Diligence", to: "/engineering-advisory/technical-due-diligence", blurb: "Independent review of solar and storage assets before you commit.", image: advSolarRows.url },
+  { label: "Owner's Engineering", to: "/engineering-advisory/owners-engineering", blurb: "Your technical team on the owner's side, from design to handover.", image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/eng_adv_1.jpeg" },
+  { label: "Technical Due Diligence", to: "/engineering-advisory/technical-due-diligence", blurb: "Independent review of solar and storage assets before you commit.", image:"https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/eng_adv_2.jpeg" },
   { label: "BESS Advisory", to: "/engineering-advisory/bess-advisory", blurb: "Battery storage sizing, specification, safety and integration.", image: advGridLines.url },
 ];
 
@@ -233,7 +233,7 @@ export const MARINE_PAGES: Record<string, SolutionDetail> = {
     titleLines: ["Electric", "Boat"],
     tagline: "New-build battery-electric vessels",
     Icon: Ship,
-    image: cialImg.url,
+    image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/electricboat.jpeg",
     imageAlt: "Electric passenger boat on calm water",
     features: ["Zero emissions", "Silent operation", BKOOL.name, "Lower running costs", "Designed from keel up"],
     intro:
@@ -262,7 +262,7 @@ export const MARINE_PAGES: Record<string, SolutionDetail> = {
     titleLines: ["Solar Electric", "Boat"],
     tagline: "New-build vessels powered by the sun",
     Icon: Sun,
-    image: sunboatImg.url,
+    image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/solarelectric.jpeg",
     imageAlt: "Solar electric vessel with roof-mounted solar panels",
     features: ["Integrated solar roof", "Battery-electric drive", "Extended range", "Minimal charging need", "Zero emissions"],
     intro:
@@ -290,7 +290,7 @@ export const MARINE_PAGES: Record<string, SolutionDetail> = {
     titleLines: ["Electric", "Propulsion Kit"],
     tagline: "Motor, battery and controls — for new builds and existing hulls",
     Icon: Zap,
-    image: propulsionImg.url,
+    image:"https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/propulsion.jpeg",
     imageAlt: "Electric marine propulsion motor",
     features: ["Electric motor & drive", BKOOL.name, "M-CONTROL monitoring & control (feature)", "New builds or retrofit", "Engineering support"],
     intro:
@@ -319,7 +319,7 @@ export const MARINE_PAGES: Record<string, SolutionDetail> = {
     titleLines: ["Vessel", "Retrofit"],
     tagline: "Electric propulsion retrofit for existing vessels",
     Icon: Recycle,
-    image: retrofitImg.url,
+    image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/vesel1.png",
     imageAlt: "Vessel retrofitted with electric propulsion and solar",
     benefits: [
       { title: "Lower local emissions", body: "No engine exhaust on the water during electric operation. Emissions over the full life cycle depend on how the charging electricity is generated." },

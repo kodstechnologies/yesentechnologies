@@ -137,25 +137,25 @@ const EMARINE_TAGS = [
 const RETROFIT_VESSELS = [
   {
     name: "Shikara Solar Boat",
-    image: boatShikara,
+    image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/videos/WhatsApp+Image+2026-10-21+at+4.39.56+PM+(1).jpeg",
     status: "In service",
     specs: "12 m × 3 m · 12 guests · 8.4 kW outboard · 30 kWh lithium · 7–8 kn",
   },
   {
     name: "CIAL Solar Boat",
-    image: boatCial,
+    image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/videos/WhatsApp+Image+2026-10-21+at+4.39.56+PM+(2).jpeg",
     status: "In service",
     specs: "15 m ferry · 25 guests · twin 15 kW outboard · 80 kWh liquid-cooled · 7–8 kn",
   },
   {
     name: "Hydel Tourism Boat",
-    image: boatHydel,
+    image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/videos/WhatsApp+Image+2026-10-21+at+4.39.56+PM+(3).jpeg",
     status: "In service",
     specs: "12 m × 4.5 m · 25 guests · twin 8 kW outboard · 70 kWh liquid-cooled · 10 kn",
   },
   {
     name: "Electric Leisure Boat",
-    image: boatLeisure.url,
+    image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/videos/WhatsApp+Image+2026-10-21+at+4.39.56+PM.jpeg",
     status: "In service",
     specs: "8 m × 3.5 m · 10 guests · twin 8 kW outboard · 20 kWh liquid-cooled · 6–7 kn",
   },

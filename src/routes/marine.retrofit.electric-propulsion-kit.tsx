@@ -13,7 +13,7 @@ const data = {
   ...base,
   titleLines: ["Propulsion Kit", "Retrofit"],
   tagline: "Replace diesel with electric drive on the vessel you already own",
-  image: retrofitImg.url,
+  image: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/vessel2.png",
   imageAlt: "B-Kool marine batteries installed onboard during a vessel retrofit",
   features: ["Hull & drivetrain assessment", "Electric motor & drive", "B-Kool Marine Battery System", "M-CONTROL monitoring & control (feature)", "Installation & commissioning"],
   intro: "For existing vessels, we start with an assessment of the hull, drivetrain and duty cycle, then size and install an electric motor, B-Kool batteries, controls and M-CONTROL monitoring in place of the existing engine.",
