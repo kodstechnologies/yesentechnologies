@@ -116,9 +116,9 @@ const OFFICES: Office[] = [
     phone: "+971 568 089 912",
     email: "info@yesentechnologies.com",
     address: ["YESEN ENERGIA & TECHNOLOGY - FZCO", "Building A1,", "Dubai Silicon Oasis", "Dubai, United Arab Emirates"],
-    query: "25.2436,55.3122(Malaysian+Trade+Center+Oud+Metha+Dubai)",
-    lat: 25.2436,
-    lon: 55.3122,
+    query: "25.125110706232924,55.38060237379372(Malaysian+Trade+Center+Oud+Metha+Dubai)",
+    lat: 25.125110706232924,
+    lon: 55.38060237379372,
   },
   {
     code: "au",
