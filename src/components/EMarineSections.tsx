@@ -60,7 +60,7 @@ export function EMarineSections() {
                     tabIndex={-1}
                     aria-hidden="true"
                   >
-                    <source data-src={keralaSolarBoat.url} type="video/mp4" />
+                    <source data-src="https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/YESEN_EMarine_Compressed.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/30 via-transparent to-transparent" />

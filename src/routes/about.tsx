@@ -255,8 +255,8 @@ const LOCATIONS = [
     name: "Dubai, UAE",
     x: 65.1,
     y: 44.6,
-    entity: "YESEN Technologies — MENA",
-    address: ["Malaysian Trade Center Building, 114 Oud Metha", "PO Box 7854, Dubai, UAE"],
+    entity: "YESEN ENERGIA & TECHNOLOGY - FZCO",
+    address: ["Building A1,", "Dubai Silicon Oasis", "Dubai, United Arab Emirates"],
     phone: "+971 568 089 912",
     lat: 25.2436,
     lng: 55.3122,
@@ -349,7 +349,7 @@ function AboutPage() {
       const el = heroVideoRef.current;
       if (!el) return;
       el.muted = true;
-      void el.play().catch(() => {});
+      void el.play().catch(() => { });
     };
     start();
     const id = window.setTimeout(start, 600);
@@ -393,7 +393,7 @@ function AboutPage() {
                 onLoadedData={(event) => {
                   const el = event.currentTarget;
                   el.muted = true;
-                  void el.play().catch(() => {});
+                  void el.play().catch(() => { });
                 }}
               />
               <div className="about-hero-scrim" />
@@ -468,7 +468,7 @@ function AboutPage() {
                 <div className="uc-frame uc-frame-video">
                   <video
                     className="uc-story-video"
-                    data-src={ourStoryVideo.url}
+                    data-src="https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/YESEN_About_Dolphins+(1).mp4"
                     autoPlay
                     muted
                     loop
@@ -560,6 +560,8 @@ function AboutPage() {
 
         {/* -------------------------------------- SECTION 3 — OUR DIFFERENCE */}
         <DifferenceBand />
+
+
 
         {/* ------------------------------------- SECTION 4 — MISSION & VISION */}
         <section className="uc-section">
@@ -731,11 +733,10 @@ function AboutPage() {
                         key={`tab-${loc.name}`}
                         type="button"
                         onClick={() => setActiveLocation(i)}
-                        className={`rounded-full border px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.18em] transition-colors ${
-                          activeLocation === i
-                            ? "border-brand-forest/40 bg-brand-forest/10 text-brand-forest"
-                            : "border-brand-navy/12 bg-white/60 text-brand-navy/60 hover:text-brand-navy"
-                        }`}
+                        className={`rounded-full border px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.18em] transition-colors ${activeLocation === i
+                          ? "border-brand-forest/40 bg-brand-forest/10 text-brand-forest"
+                          : "border-brand-navy/12 bg-white/60 text-brand-navy/60 hover:text-brand-navy"
+                          }`}
                       >
                         {loc.name}
                       </button>

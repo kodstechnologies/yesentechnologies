@@ -50,9 +50,10 @@ const OFFICES = [
   {
     country: "UAE",
     flag: "ae" as const,
-    lines: ["YESEN Technologies — MENA", "Malaysian Trade Center Building", "114 Oud Metha, PO Box 7854", "Dubai, UAE"],
+    lines: ["YESEN ENERGIA & TECHNOLOGY - FZCO", "Building A1,", "Dubai Silicon Oasis", "Dubai, United Arab Emirates"],
     tel: "+971 568 089 912",
   },
+
   {
     country: "Australia",
     flag: "au" as const,
@@ -86,36 +87,33 @@ export function SiteHeader({ heroDark = false }: { heroDark?: boolean }) {
   return (
     <header
       style={{ willChange: "transform", backfaceVisibility: "hidden" }}
-      className={`fixed inset-x-0 top-0 z-50 transform-gpu transition-transform duration-300 ease-out ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 transform-gpu transition-transform duration-300 ease-out ${hidden ? "-translate-y-full" : "translate-y-0"
+        }`}
     >
       <div
-        className={`transition-colors duration-300 ${
-          atTop ? "bg-transparent" : "border-b border-brand-navy/10 bg-shell"
-        }`}
+        className={`transition-colors duration-300 ${atTop ? "bg-transparent" : "border-b border-brand-navy/10 bg-shell"
+          }`}
       >
-          <div
-            className={`relative mx-auto grid w-full max-w-[100rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 transition-[padding] duration-300 sm:gap-6 sm:px-8 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-3 lg:px-6 xl:gap-6 xl:px-12 ${
-              atTop ? "py-4 sm:py-7" : "py-3 sm:py-4"
+        <div
+          className={`relative mx-auto grid w-full max-w-[100rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 transition-[padding] duration-300 sm:gap-6 sm:px-8 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-3 lg:px-6 xl:gap-6 xl:px-12 ${atTop ? "py-4 sm:py-7" : "py-3 sm:py-4"
             }`}
-          >
-            <Link to="/" aria-label="YESEN Technologies Pvt Ltd home" className="min-w-0 shrink-0">
-              <Logo
-                variant={heroDark && atTop ? "light" : "dark"}
-                className={`w-auto max-w-[56vw] transition-[height] duration-300 ${atTop ? "h-9 sm:h-12 lg:h-8 xl:h-10" : "h-8 sm:h-10 lg:h-8 xl:h-9"}`}
-              />
-            </Link>
+        >
+          <Link to="/" aria-label="YESEN Technologies Pvt Ltd home" className="min-w-0 shrink-0">
+            <Logo
+              variant={heroDark && atTop ? "light" : "dark"}
+              className={`w-auto max-w-[56vw] transition-[height] duration-300 ${atTop ? "h-9 sm:h-12 lg:h-8 xl:h-10" : "h-8 sm:h-10 lg:h-8 xl:h-9"}`}
+            />
+          </Link>
 
 
-            <NavMenu light={heroDark && atTop} align="end" />
-              <Link to="/enquire" className="hidden h-10 shrink-0 items-center whitespace-nowrap rounded-full border border-brand-navy/15 bg-shell px-6 font-sans text-[0.68rem] font-bold text-brand-navy shadow-sm transition-colors hover:border-brand-navy/30 hover:bg-brand-ivory lg:inline-flex xl:text-[0.72rem]">
-                Get a quote
-              </Link>
+          <NavMenu light={heroDark && atTop} align="end" />
+          <Link to="/enquire" className="hidden h-10 shrink-0 items-center whitespace-nowrap rounded-full border border-brand-navy/15 bg-shell px-6 font-sans text-[0.68rem] font-bold text-brand-navy shadow-sm transition-colors hover:border-brand-navy/30 hover:bg-brand-ivory lg:inline-flex xl:text-[0.72rem]">
+            Get a quote
+          </Link>
 
-            <MobileNav tone={heroDark && atTop ? "light" : "dark"} />
+          <MobileNav tone={heroDark && atTop ? "light" : "dark"} />
 
-          </div>
+        </div>
 
       </div>
     </header>
@@ -144,18 +142,18 @@ export function SiteFooter() {
           <ul className="mt-4 flex flex-wrap items-center gap-3">
             {SOCIALS.map(({ label, href, Icon, brand }) => (
               <li key={label}>
-{label === "Email" ? (<span style={{ ["--social-brand" as string]: brand }} className="contents"><EmailChooser ariaLabel="Email" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"><Icon size={17} /></EmailChooser></span>) : (
-                <a
-                  href={href}
-                  target={href.startsWith("mailto:") ? undefined : "_blank"}
-                  rel="noreferrer noopener"
-                  aria-label={label}
-                  title={label}
-                  style={{ ["--social-brand" as string]: brand }}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"
-                >
-                  <Icon size={17} />
-                </a>)}
+                {label === "Email" ? (<span style={{ ["--social-brand" as string]: brand }} className="contents"><EmailChooser ariaLabel="Email" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"><Icon size={17} /></EmailChooser></span>) : (
+                  <a
+                    href={href}
+                    target={href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel="noreferrer noopener"
+                    aria-label={label}
+                    title={label}
+                    style={{ ["--social-brand" as string]: brand }}
+                    className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"
+                  >
+                    <Icon size={17} />
+                  </a>)}
               </li>
             ))}
 

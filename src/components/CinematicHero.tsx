@@ -34,7 +34,7 @@ export function CinematicHero() {
     const slow = !!conn && (conn.saveData === true || /(^|-)2g|3g/.test(conn.effectiveType ?? ""));
     if (reduced || slow) return;
     const constrained = typeof conn?.downlink === "number" && conn.downlink < 5;
-    setSrc(window.matchMedia("(min-width: 768px)").matches && !constrained ? heroHD.url : hero.url);
+    setSrc(window.matchMedia("(min-width: 768px)").matches && !constrained ? "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/YESEN_Homepage_Website_Layout_Compressed_v3.mp4" : "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/YESEN_Homepage_Website_Layout_Compressed_v3.mp4");
   }, []);
 
   useEffect(() => {

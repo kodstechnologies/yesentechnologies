@@ -107,7 +107,7 @@ function BKoolPage() {
         <section className="relative isolate overflow-hidden">
           <div className="relative min-h-[68vh] w-full lg:min-h-[84vh]">
             <img
-              src={heroImage}
+              src="https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/WhatsApp+Image+2026-10-23+at+2.55.01+PM.jpeg"
               alt="B-KOOL marine LFP battery system"
               decoding="async"
               fetchPriority="high"

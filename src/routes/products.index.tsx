@@ -176,7 +176,7 @@ function ProductsPage() {
                 playsInline
                 preload="metadata"
               >
-                <source src={heroVideo.url} type="video/mp4" />
+                <source src="https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/YESEN_Products_No_Text.mp4" type="video/mp4" />
               </video>
               <div className="pd-hero-scrim" />
             </div>

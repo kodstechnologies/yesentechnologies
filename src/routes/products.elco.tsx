@@ -6,16 +6,12 @@ import { useState } from "react";
 import { useQuoteModal } from "@/components/QuoteModal";
 import { ELCO_MODELS, ELCO_COMPARISON, ELCO_INTEGRATION } from "@/content/elco";
 import { MARINE_FAQS } from "@/content/marine-faqs";
-import ep20 from "@/assets/elco-ep20-lifestyle.jpg.asset.json";
-import ep30 from "@/assets/elco-ep-30.jpg.asset.json";
-import ep50 from "@/assets/elco-ep50-action.jpg.asset.json";
-import hero from "@/assets/elco-hero-landscape.jpg.asset.json";
 import "@/styles/elco.css";
 
 const images = [
-  { asset: ep20, alt: "ELCO EP-20 electric outboard operating on a red boat", caption: "EP-20 · On-water installation", type: "lifestyle" },
-  { asset: ep30, alt: "ELCO EP-30 electric outboard showing its complete motor, shaft and propeller", caption: "EP-30 · Motor, shaft & propeller", type: "product" },
-  { asset: ep50, alt: "ELCO EP-50 electric outboard powering a yellow Whaly boat", caption: "EP-50 · Electric propulsion in operation", type: "lifestyle" },
+  { url: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/elco-ep20-lifestyle.jpg.jpeg", alt: "ELCO EP-20 electric outboard operating on a red boat", caption: "EP-20 · On-water installation", type: "lifestyle" },
+  { url: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/elco-ep-30.jpg.jpeg", alt: "ELCO EP-30 electric outboard showing its complete motor, shaft and propeller", caption: "EP-30 · Motor, shaft & propeller", type: "product" },
+  { url: "https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/elco-ep50-action.jpg.jpeg", alt: "ELCO EP-50 electric outboard powering a yellow Whaly boat", caption: "EP-50 · Electric propulsion in operation", type: "lifestyle" },
 ];
 const title = "ELCO EP-Series Electric Outboards | YESEN Technologies";
 const description = "Explore ELCO EP-20, EP-30 and EP-50 electric outboards, with vessel assessment, marine battery integration, controls and commissioning by YESEN Technologies.";
@@ -59,7 +55,7 @@ function ElcoPage() {
     <main>
       <section className="elco-hero">
         <div className="elco-hero-visual">
-          <img className="elco-hero-image" src={hero.url} alt="ELCO electric outboard fitted to a red Whaly boat beside the water" fetchPriority="high" decoding="async" />
+          <img className="elco-hero-image" src="https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/elco-hero-landscape.jpg.jpeg" alt="ELCO electric outboard fitted to a red Whaly boat beside the water" fetchPriority="high" decoding="async" />
           <div className="elco-wrap elco-hero-copy">
             <Button asChild variant="link" className="h-auto p-0 text-brand-ivory"><Link to="/products"><ArrowLeft /> Back to Products</Link></Button>
             <p className="elco-eyebrow mt-7">Elco Motor Yachts · Electric Outboards</p>
@@ -98,7 +94,7 @@ function ElcoPage() {
         </div>
         {ELCO_MODELS.map((m, i) => <Reveal key={m.id}><article id={m.id} className={`elco-model-row ${i % 2 === 1 ? "elco-model-reverse" : ""}`}>
           <figure className={`elco-model-figure elco-model-${images[i]?.type}`}>
-            <img className="elco-model-image" src={images[i]?.asset.url} alt={images[i]?.alt} loading="lazy" decoding="async" />
+            <img className="elco-model-image" src={images[i]?.url} alt={images[i]?.alt} loading="lazy" decoding="async" />
             <figcaption>{images[i]?.caption}<span>Elco Motor Yachts</span></figcaption>
           </figure>
           <div className="elco-model-copy">

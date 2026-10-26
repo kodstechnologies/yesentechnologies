@@ -115,7 +115,7 @@ const OFFICES: Office[] = [
     city: "Dubai",
     phone: "+971 568 089 912",
     email: "info@yesentechnologies.com",
-    address: ["YESEN Technologies — MENA", "Malaysian Trade Center Building", "114 Oud Metha, Dubai, UAE", "PO Box 7854"],
+    address: ["YESEN ENERGIA & TECHNOLOGY - FZCO", "Building A1,", "Dubai Silicon Oasis", "Dubai, United Arab Emirates"],
     query: "25.2436,55.3122(Malaysian+Trade+Center+Oud+Metha+Dubai)",
     lat: 25.2436,
     lon: 55.3122,
@@ -170,15 +170,13 @@ function OfficeRow({
       type="button"
       onClick={onSelect}
       aria-pressed={active}
-      className={`group w-full border-b border-brand-navy/12 px-1 py-3.5 text-left transition-colors duration-500 sm:py-5 ${
-        active ? "bg-brand-navy/[0.04]" : "hover:bg-brand-navy/[0.02]"
-      }`}
+      className={`group w-full border-b border-brand-navy/12 px-1 py-3.5 text-left transition-colors duration-500 sm:py-5 ${active ? "bg-brand-navy/[0.04]" : "hover:bg-brand-navy/[0.02]"
+        }`}
     >
       <span className="flex items-start gap-4">
         <span
-          className={`mt-1.5 h-2 w-2 shrink-0 rounded-full transition-colors duration-500 ${
-            active ? "bg-brand-leaf" : "bg-brand-navy/25"
-          }`}
+          className={`mt-1.5 h-2 w-2 shrink-0 rounded-full transition-colors duration-500 ${active ? "bg-brand-leaf" : "bg-brand-navy/25"
+            }`}
         />
         <span className="min-w-0 flex-1">
           <span className="flex items-center gap-3">
@@ -194,38 +192,38 @@ function OfficeRow({
           </span>
 
           {active ? (
-          <motion.span
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="block overflow-hidden"
-          >
-            <span className="mt-3 block space-y-1 text-[0.85rem] leading-relaxed text-brand-navy/70">
-              {office.address.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-              <span className="block pt-2">
-                <a
-                  href={`tel:${office.phone.replace(/\s/g, "")}`}
-                  className="underline decoration-brand-leaf underline-offset-4"
-                >
-                  {office.phone}
-                </a>
-              </span>
-              {office.email ? (
-                <span className="block">
+            <motion.span
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="block overflow-hidden"
+            >
+              <span className="mt-3 block space-y-1 text-[0.85rem] leading-relaxed text-brand-navy/70">
+                {office.address.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+                <span className="block pt-2">
                   <a
-                    href={`mailto:${office.email}`}
+                    href={`tel:${office.phone.replace(/\s/g, "")}`}
                     className="underline decoration-brand-leaf underline-offset-4"
                   >
-                    {office.email}
+                    {office.phone}
                   </a>
                 </span>
-              ) : null}
-            </span>
-          </motion.span>
+                {office.email ? (
+                  <span className="block">
+                    <a
+                      href={`mailto:${office.email}`}
+                      className="underline decoration-brand-leaf underline-offset-4"
+                    >
+                      {office.email}
+                    </a>
+                  </span>
+                ) : null}
+              </span>
+            </motion.span>
           ) : null}
         </span>
       </span>
@@ -351,7 +349,7 @@ function ContactPage() {
         {/* ---------------------------------------------------------- ASSIST */}
         <section id="assist" className="ctx-assist mt-16 scroll-mt-16">
           <div className="ctx-assist-media" aria-hidden="true">
-            <video src={contactHeroVideo.url} autoPlay muted loop playsInline preload="metadata" />
+            <video src="https://yesen-bucket.s3.ap-south-1.amazonaws.com/boat/YESEN_Contact_No_Form_Compressed.mp4" autoPlay muted loop playsInline preload="metadata" />
           </div>
 
           <div className="mx-auto w-full max-w-[100rem] px-6 sm:px-12">

@@ -553,19 +553,16 @@ const HomeHeader = React.memo(function HomeHeader() {
     <header
       /* Transform-only transition: fading opacity at the same time left a ghost
          trail as the compositor re-rasterised the blurred bar mid-slide. */
-      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-700 will-change-transform ${
-        headerHidden ? "-translate-y-full" : "translate-y-0"
-      }`}
+      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-700 will-change-transform ${headerHidden ? "-translate-y-full" : "translate-y-0"
+        }`}
     >
       <div
-        className={`transition-[background-color,border-color] duration-700 ${
-          atTop ? "bg-transparent" : "border-b border-border/60 bg-shell"
-        }`}
+        className={`transition-[background-color,border-color] duration-700 ${atTop ? "bg-transparent" : "border-b border-border/60 bg-shell"
+          }`}
       >
         <div
-          className={`relative mx-auto grid w-full max-w-[100rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 transition-[padding] duration-700 sm:gap-6 sm:px-8 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-3 lg:px-6 xl:gap-6 xl:px-12 ${
-            atTop ? "py-4 sm:py-7" : "py-3 sm:py-4"
-          }`}
+          className={`relative mx-auto grid w-full max-w-[100rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 transition-[padding] duration-700 sm:gap-6 sm:px-8 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-3 lg:px-6 xl:gap-6 xl:px-12 ${atTop ? "py-4 sm:py-7" : "py-3 sm:py-4"
+            }`}
         >
 
           <Link to="/" aria-label="YESEN Technologies Pvt Ltd home" className="min-w-0 shrink-0">
@@ -576,9 +573,9 @@ const HomeHeader = React.memo(function HomeHeader() {
           </Link>
 
           <NavMenu light={atTop} align="end" />
-             <Link to="/enquire" className="hidden h-10 shrink-0 items-center whitespace-nowrap rounded-full border border-brand-navy/15 bg-shell px-6 font-sans text-[0.68rem] font-bold text-brand-navy shadow-sm transition-colors hover:border-brand-navy/30 hover:bg-brand-ivory lg:inline-flex xl:text-[0.72rem]">
-              Get a quote
-            </Link>
+          <Link to="/enquire" className="hidden h-10 shrink-0 items-center whitespace-nowrap rounded-full border border-brand-navy/15 bg-shell px-6 font-sans text-[0.68rem] font-bold text-brand-navy shadow-sm transition-colors hover:border-brand-navy/30 hover:bg-brand-ivory lg:inline-flex xl:text-[0.72rem]">
+            Get a quote
+          </Link>
 
           <MobileNav tone={atTop ? "light" : "dark"} />
 
@@ -740,7 +737,7 @@ function IridescentCard({
 
 
 function Home() {
-  
+
   useScrollReveal();
   useDirectionalCardSlide();
 
@@ -754,7 +751,7 @@ function Home() {
       </div>
 
       <SplashScreen />
-      
+
 
 
       {/* Minimal wide-tracked header — isolated so its scroll state never
@@ -1185,18 +1182,18 @@ function Home() {
               <ul className="mt-4 flex flex-wrap items-center gap-3">
                 {SOCIALS.map(({ label, href, Icon, brand }) => (
                   <li key={label}>
-{label === "Email" ? (<span style={{ ["--social-brand" as string]: brand }} className="contents"><EmailChooser ariaLabel="Email" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"><Icon size={17} /></EmailChooser></span>) : (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      aria-label={label}
-                      title={label}
-                      style={{ ["--social-brand" as string]: brand }}
-                      className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"
-                    >
-                      <Icon size={17} />
-                    </a>)}
+                    {label === "Email" ? (<span style={{ ["--social-brand" as string]: brand }} className="contents"><EmailChooser ariaLabel="Email" className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"><Icon size={17} /></EmailChooser></span>) : (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        aria-label={label}
+                        title={label}
+                        style={{ ["--social-brand" as string]: brand }}
+                        className="grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-[var(--social-brand)] hover:bg-[var(--social-brand)] hover:text-white"
+                      >
+                        <Icon size={17} />
+                      </a>)}
                   </li>
                 ))}
               </ul>
@@ -1253,12 +1250,12 @@ function Home() {
                       ))}
                     </address>
                     <a
-                        href={`tel:${office.tel.replace(/\s/g, "")}`}
-                        className="inline-flex items-center gap-2 self-start whitespace-nowrap border-t border-border pt-3 text-sm font-medium leading-relaxed text-muted-foreground transition-colors hover:text-brand-navy"
-                      >
-                        <Phone size={14} className="shrink-0 text-brand-leaf" aria-hidden />
-                        {office.tel}
-                      </a>
+                      href={`tel:${office.tel.replace(/\s/g, "")}`}
+                      className="inline-flex items-center gap-2 self-start whitespace-nowrap border-t border-border pt-3 text-sm font-medium leading-relaxed text-muted-foreground transition-colors hover:text-brand-navy"
+                    >
+                      <Phone size={14} className="shrink-0 text-brand-leaf" aria-hidden />
+                      {office.tel}
+                    </a>
                   </li>
                 ))}
               </ul>
