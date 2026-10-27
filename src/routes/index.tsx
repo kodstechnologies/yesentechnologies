@@ -71,7 +71,7 @@ export const Route = createFileRoute("/")({
         content:
           "YESEN Technologies Pvt Ltd designs solar, energy storage, e-marine and clean water solutions that transform lives across Asia, Australia and the Middle East.",
       },
-      { property: "og:title", content: "YESEN Technologies Pvt Ltd | Sustainable Energy & Clean Tech" },
+      { property: "og:title", content: "YESEeN Technologies Pvt Ltd | Sustainable Energy & Clean Tech" },
       {
         property: "og:description",
         content:
