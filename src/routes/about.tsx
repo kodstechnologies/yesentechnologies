@@ -255,7 +255,7 @@ const LOCATIONS = [
     name: "Dubai, UAE",
     x: 65.1,
     y: 44.6,
-    entity: "YESEN1 ENERGIA & TECHNOLOGY - FZCO",
+    entity: "YESEN ENERGIA & TECHNOLOGY - FZCO",
     address: ["Building A1,", "Dubai Silicon Oasis", "Dubai, United Arab Emirates"],
     phone: "+971 568 089 912",
     lat: 25.125110706232924,

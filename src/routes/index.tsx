@@ -65,7 +65,7 @@ import { CinematicHero } from "@/components/CinematicHero";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "YESEeN Technologies Pvt Ltd | Sustainable Energy & Clean Tech" },
+      { title: "YESEN Technologies Pvt Ltd | Sustainable Energy & Clean Tech" },
       {
         name: "description",
         content:
@@ -615,7 +615,7 @@ const OFFICES = [
   {
     country: "UAE",
     flag: "ae" as const,
-    lines: ["YESEN Technologies — MENA", "Malaysian Trade Center Building", "114 Oud Metha, PO Box 7854", "Dubai, UAE"],
+    lines: ["YESEN ENERGIA & TECHNOLOGY - FZCO", "Building A1,", "Dubai Silicon Oasis", "Dubai, United Arab Emirates"],
     tel: "+971 568 089 912",
   },
   {
