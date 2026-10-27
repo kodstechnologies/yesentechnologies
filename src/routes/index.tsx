@@ -65,7 +65,7 @@ import { CinematicHero } from "@/components/CinematicHero";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "YESEN Technologies Pvt Ltd | Sustainable Energy & Clean Tech" },
+      { title: "YESEeN Technologies Pvt Ltd | Sustainable Energy & Clean Tech" },
       {
         name: "description",
         content:
