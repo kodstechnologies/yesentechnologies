@@ -62,6 +62,15 @@ export async function submitContactEnquiry(
 }
 
 /**
+ * Submit land and earth enquiry
+ */
+export async function submitLandAndEarthEnquiry(
+  payload: Record<string, any>
+): Promise<ApiResponse> {
+  return apiFetch<ApiResponse>(API_ENDPOINTS.FORMS.LAND_AND_EARTH, payload);
+}
+
+/**
  * Submit engineering advisory enquiry
  */
 export async function submitEngineeringAdvisoryEnquiry(

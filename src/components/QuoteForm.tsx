@@ -7,6 +7,7 @@ import { SOLAR_SERVICES, SOLAR_SYSTEMS, initialSolarService, needsSolarConsent }
 import { quoteStart } from "@/content/quote-start";
 import { PRODUCTS, ELCO_MODEL_NAMES, initialProduct, initialElcoModel } from "@/content/product-enquiry";
 import {
+  submitLandAndEarthEnquiry,
   submitEngineeringAdvisoryEnquiry,
   submitMarineEnquiry,
   submitProductUpdatedEnquiry,
@@ -35,8 +36,8 @@ const MARINE_MODES = [
 type MarineMode = (typeof MARINE_MODES)[number]["key"];
 const GREENFIELD_NEEDS = ["Electric Boat", "Solar Electric Boat", "Electric Propulsion Kit"];
 const RETROFIT_NEEDS = ["Vessel Retrofit", "Electric Propulsion Kit"];
-const VESSEL_TYPES = ["Ferry", "Tour boat", "Houseboat", "Trawler", "Yacht", "Workboat", "Patrol craft", "Other"];
-const ENGINE_TYPES = ["Diesel", "Petrol", "Other"];
+const VESSEL_TYPES = ["Ferry", "Tour boat", "Houseboat", "Trawler", "Yacht", "Workboat", "Patrol craft", "other"];
+const ENGINE_TYPES = ["diesel", "petrol", "other"];
 const CURRENCIES = ["INR", "USD", "AED", "AUD"];
 const STEPS = ["Service", "Project", "Contact"];
 
@@ -306,12 +307,17 @@ export function QuoteForm({
             const fd = Object.fromEntries(new FormData(e.currentTarget).entries()) as Record<string, string>;
             const name = (fd.name ?? "").trim();
             const email = (fd.email ?? "").trim();
+            const phone = (fd.phone ?? "").trim();
             if (needsSolarConsent(interest, fd.consent)) {
               toast.error("Please accept the terms before submitting your solar enquiry.");
               return;
             }
             if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
               toast.error("Please enter your name and a valid email address.");
+              return;
+            }
+            if (phone && phone.length !== 10) {
+              toast.error("Please enter a valid 10-digit phone number.");
               return;
             }
 
@@ -328,12 +334,12 @@ export function QuoteForm({
               sourcePage: window.location.pathname,
             };
 
-            // Engineering Advisory (Land & Earth + Advisory)
-            if (interest === "land" || interest === "advisory") {
+            // Land & Earth
+            if (interest === "land") {
               payload = {
                 ...payload,
-                solarService: fd.solarService || null,
-                systemInInterest: fd.landType || null,
+                solarService: fd.solarService ? fd.solarService.toLowerCase() : null,
+                systemInInterest: fd.landType ? fd.landType.toLowerCase() : null,
                 country: fd.country || null,
                 state: fd.state || null,
                 pincode: fd.pincode || null,
@@ -342,8 +348,32 @@ export function QuoteForm({
                 load: fd.load || null,
                 averageMonthlyElectricityBill: fd.monthlyElectricityBill || null,
                 landArea: fd.roofLandArea || null,
-                gridAvailability: fd.gridAvailability || null,
-                projectStage: fd.projectStage || null,
+                gridAvailability: fd.gridAvailability ? fd.gridAvailability.toLowerCase() : null,
+              };
+
+              try {
+                await submitLandAndEarthEnquiry(payload);
+                setSent(true);
+              } catch (error) {
+                toast.error("Sorry, your request couldn't be sent. Please email info@yesentechnologies.com.");
+              }
+            }
+            // Engineering Advisory
+            else if (interest === "advisory") {
+              payload = {
+                ...payload,
+                solarService: fd.solarService ? fd.solarService.toLowerCase() : null,
+                systemInInterest: fd.landType ? fd.landType.toLowerCase() : null,
+                country: fd.country || null,
+                state: fd.state || null,
+                pincode: fd.pincode || null,
+                city: fd.city || null,
+                address: fd.address || null,
+                load: fd.load || null,
+                averageMonthlyElectricityBill: fd.monthlyElectricityBill || null,
+                landArea: fd.roofLandArea || null,
+                gridAvailability: fd.gridAvailability ? fd.gridAvailability.toLowerCase() : null,
+                projectStage: fd.projectStage ? fd.projectStage.toLowerCase() : null,
                 capacity: fd.capacityMwp || null,
                 bessIncluded: fd.bessIncluded || null,
               };
@@ -360,11 +390,11 @@ export function QuoteForm({
               payload = {
                 ...payload,
                 retrofitStatus: mode === "Retrofit" ? "retrofit existing" : mode === "Greenfield" ? "new build" : null,
-                vesselCatagory: need === "Electric Propulsion Kit" ? "electric propulsion kit" : null,
-                vesselType: fd.vesselType || null,
+                vesselCatagory: need === "Electric Propulsion Kit" ? "electric propulsion kit" : need === "Vessel Retrofit" ? "vessel retrofit" : null,
+                vesselType: fd.vesselType === "Other" ? "other" : fd.vesselType || null,
                 vesselLength: fd.vesselLength || null,
                 vesselWeight: fd.vesselWeight || null,
-                currentEngineType: fd.engineType || null,
+                currentEngineType: fd.engineType ? fd.engineType.toLowerCase() : null,
                 yearOfBuild: fd.yearBuilt || null,
                 currentEngineAndPropulsion: fd.currentPropulsion || null,
                 dailyOperatingHours: fd.operatingHours || null,
@@ -600,8 +630,8 @@ export function QuoteForm({
                 <Field label="BESS included" full>
                   <select className={inputCls} name="bessIncluded" defaultValue="">
                         <option value="">Select…</option>
-                        {["Yes", "No"].map((o) => (
-                          <option key={o} value={o}>{o}</option>
+                        {["yes", "no"].map((o) => (
+                          <option key={o} value={o}>{o.charAt(0).toUpperCase() + o.slice(1)}</option>
                         ))}
                       </select>
                 </Field>
@@ -658,7 +688,7 @@ export function QuoteForm({
                 <input className={inputCls} type="email" name="email" maxLength={255} placeholder="you@company.com" />
               </Field>
               <Field label="Phone">
-                <NumericInput className={inputCls} name="phone" maxLength={30} placeholder="Your phone number" />
+                <NumericInput className={inputCls} name="phone" maxLength={10} placeholder="Your phone number" />
               </Field>
               {interest === "marine" && mode === "Retrofit" && <Field label="Company"><input className={inputCls} name="company" maxLength={160} placeholder="Company name" /></Field>}
               <Field label="Budget">
